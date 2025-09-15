@@ -52,12 +52,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        transition: background 0.3s, transform 0.2s;
       }
       #musicBtn:hover {
         background: rgba(255, 255, 255, 0.2);
-        box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
         transform: scale(1.05);
       }
       #musicBtn img {
@@ -80,7 +78,7 @@
       .links-row {
         display: flex;
         justify-content: center;
-        flex-wrap: wrap; /* перенос на новую строку, если не влезает */
+        flex-wrap: wrap;
         gap: 20px;
         width: 100%;
       }
@@ -99,14 +97,14 @@
       /* Адаптив: телефоны */
       @media (max-width: 768px) {
         .links-row a img {
-          max-height: 40px; /* уменьшаем иконки */
+          max-height: 40px;
         }
         .links-row {
           gap: 15px;
         }
         .video-wrapper {
-          margin-top: 50px; /* меньше отступ сверху */
-          padding: 0 10px; /* меньше боковые отступы */
+          margin-top: 50px;
+          padding: 0 10px;
         }
         #musicBtn {
           width: 65px;
@@ -168,7 +166,6 @@
             await audio.play();
             icon.src = "img/sound.png"; // включённый звук
             icon.alt = "Звук вкл";
-            btn.style.boxShadow = "0 0 30px rgba(0,255,0,0.7)";
           } catch (err) {
             console.log("Не удалось включить:", err);
           }
@@ -176,7 +173,6 @@
           audio.pause();
           icon.src = "img/mute.png"; // выключенный звук
           icon.alt = "Звук выкл";
-          btn.style.boxShadow = "0 0 15px rgba(255,255,255,0.2)";
         }
       });
     </script>
