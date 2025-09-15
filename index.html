@@ -21,7 +21,9 @@
         position: relative;
         width: 100%;
         max-width: 900px;
-        margin-top: 80px; /* больше отступ сверху */
+        margin-top: 80px; /* отступ сверху */
+        padding: 0 15px; /* отступы слева и справа */
+        box-sizing: border-box;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -67,27 +69,53 @@
 
       /* Ссылки */
       .links-section {
-        margin-top: 60px; /* увеличенный отступ от видео */
+        margin-top: 60px; /* отступ от видео */
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 25px;
+        width: 100%;
       }
 
       .links-row {
         display: flex;
         justify-content: center;
-        gap: 40px;
+        flex-wrap: wrap; /* перенос на новую строку, если не влезает */
+        gap: 20px;
+        width: 100%;
       }
 
       .links-row a img {
         max-height: 50px;
+        max-width: 100%;
         height: auto;
         width: auto;
         transition: transform 0.3s;
       }
       .links-row a img:hover {
         transform: scale(1.1);
+      }
+
+      /* Адаптив: телефоны */
+      @media (max-width: 768px) {
+        .links-row a img {
+          max-height: 40px; /* уменьшаем иконки */
+        }
+        .links-row {
+          gap: 15px;
+        }
+        .video-wrapper {
+          margin-top: 50px; /* меньше отступ сверху */
+          padding: 0 10px; /* меньше боковые отступы */
+        }
+        #musicBtn {
+          width: 65px;
+          height: 65px;
+        }
+        #musicBtn img {
+          width: 45px;
+          height: 45px;
+        }
       }
     </style>
   </head>
@@ -107,15 +135,18 @@
     <!-- Ссылки -->
     <div class="links-section">
       <div class="links-row">
-        <a href="https://vk.com" target="_blank">
+        <a href="https://vk.com/goreot21" target="_blank">
           <img src="img/VK.jpg" alt="VK Музыка" />
         </a>
-        <a href="https://music.yandex.ru" target="_blank">
+        <a
+          href="https://music.yandex.ru/artist/17363933?utm_medium=share_link_tg"
+          target="_blank"
+        >
           <img src="img/ЯМ.jpg" alt="Яндекс.Музыка" />
         </a>
       </div>
       <div class="links-row">
-        <a href="https://zvuk.com" target="_blank">
+        <a href="https://zvuk.com/artist/212112729" target="_blank">
           <img src="img/zvk.jpg" alt="ЗВУК" />
         </a>
       </div>
