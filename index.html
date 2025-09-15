@@ -11,44 +11,48 @@
         background: #000;
         font-family: Arial, sans-serif;
         color: #fff;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
       }
 
-      /* Видео */
-      .video-wrapper {
-        position: relative;
+      .page {
         width: 100%;
-        max-width: 900px;
-        margin-top: 80px; /* отступ сверху */
-        padding: 0 15px;
+        padding: 20px 15px;
         box-sizing: border-box;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
+        gap: 25px;
+      }
+
+      /* ===== ВИДЕО ===== */
+      .video-wrapper {
+        position: relative;
+        display: inline-block; /* ширина = ширина видео */
+        margin-top: 40px;
         background: #000;
       }
-
       .video-wrapper video {
-        width: 100%;
+        display: block; /* убираем дивный inline-gap */
+        width: auto; /* не растягиваем по контейнеру */
         height: auto;
-        object-fit: contain;
-        display: block;
+        max-width: 90vw; /* не шире окна */
+        max-height: 60vh; /* и не выше 60% экрана */
       }
 
-      /* Кнопка звука */
+      /* Кнопка звука — всегда в ПНУ самого видео */
       #musicBtn {
         position: absolute;
-        bottom: 15px;
-        right: 30px; /* сдвинул левее */
-        width: 80px;
-        height: 80px;
+        bottom: 10px;
+        right: 10px;
+        width: 70px;
+        height: 70px;
         border: 2px solid rgba(255, 255, 255, 0.6);
         border-radius: 50%;
         background: rgba(0, 0, 0, 0.15);
         cursor: pointer;
-        z-index: 2;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -56,104 +60,110 @@
       }
       #musicBtn:hover {
         background: rgba(255, 255, 255, 0.2);
-        transform: scale(1.1);
+        transform: scale(1.08);
       }
       #musicBtn img {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         object-fit: contain;
-        pointer-events: none;
         opacity: 0.5;
         transition: opacity 0.3s;
+        pointer-events: none;
       }
       #musicBtn:hover img {
         opacity: 0.9;
       }
 
-      /* Ссылки */
+      /* ===== ССЫЛКИ ===== */
       .links-section {
-        margin-top: 40px; /* отступ от видео */
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 30px;
+        gap: 25px;
         width: 100%;
+        margin-top: 10px; /* близко к видео, но не прилипает */
       }
-
       .links-row {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
-        gap: 30px;
+        gap: 25px;
         width: 100%;
       }
-
       .links-row a img {
         max-height: 50px;
-        max-width: 100%;
         height: auto;
         width: auto;
-        transition: transform 0.3s;
+        transition: transform 0.25s;
       }
       .links-row a img:hover {
-        transform: scale(1.1);
+        transform: scale(1.06);
       }
 
-      /* Адаптив */
-      @media (max-width: 768px) {
+      /* ===== АДАПТИВ ПО ВЫСОТЕ (низкие экраны, напр. 1360x768) ===== */
+      @media (max-height: 800px) {
+        .video-wrapper video {
+          max-height: 45vh;
+        } /* видео компактнее */
         .links-row a img {
           max-height: 40px;
-        }
-        .links-row {
-          gap: 20px;
-        }
+        } /* логотипы компактнее */
+      }
+
+      /* ===== АДАПТИВ ПО ШИРИНЕ ===== */
+      @media (max-width: 768px) {
         .video-wrapper {
-          margin-top: 50px;
-          padding: 0 10px;
+          margin-top: 20px;
         }
         #musicBtn {
-          width: 65px;
-          height: 65px;
+          width: 58px;
+          height: 58px;
         }
         #musicBtn img {
-          width: 45px;
-          height: 45px;
+          width: 40px;
+          height: 40px;
+        }
+        .links-row {
+          gap: 16px;
+        }
+        .links-row a img {
+          max-height: 40px;
         }
       }
     </style>
   </head>
   <body>
-    <!-- Видео -->
-    <div class="video-wrapper">
-      <video autoplay muted loop playsinline preload="auto">
-        <source src="videos/sqr.webm" type="video/webm" />
-        <source src="videos/1.mp4" type="video/mp4" />
-      </video>
-      <!-- Кнопка управления музыкой -->
-      <button id="musicBtn">
-        <img id="musicIcon" src="img/mute.png" alt="Звук выкл" />
-      </button>
-    </div>
-
-    <!-- Ссылки -->
-    <div class="links-section">
-      <!-- верхний ряд: 2 кнопки -->
-      <div class="links-row">
-        <a href="https://vk.com/goreot21" target="_blank">
-          <img src="img/VK.jpg" alt="VK Музыка" />
-        </a>
-        <a
-          href="https://music.yandex.ru/artist/17363933?utm_medium=share_link_tg"
-          target="_blank"
-        >
-          <img src="img/ЯМ.jpg" alt="Яндекс.Музыка" />
-        </a>
+    <div class="page">
+      <!-- Видео -->
+      <div class="video-wrapper">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="videos/sqr.webm" type="video/webm" />
+          <source src="videos/1.mp4" type="video/mp4" />
+        </video>
+        <!-- Кнопка управления музыкой (зафиксирована в правом-нижнем углу ВИДЕО) -->
+        <button id="musicBtn" aria-label="Переключить звук">
+          <img id="musicIcon" src="img/mute.png" alt="Звук выкл" />
+        </button>
       </div>
-      <!-- нижний ряд: 1 кнопка -->
-      <div class="links-row">
-        <a href="https://zvuk.com/artist/212112729" target="_blank">
-          <img src="img/zvk.jpg" alt="ЗВУК" />
-        </a>
+
+      <!-- Ссылки под видео: 2 сверху, 1 снизу -->
+      <div class="links-section">
+        <div class="links-row">
+          <a href="https://vk.com/goreot21" target="_blank">
+            <img src="img/VK.jpg" alt="VK Музыка" />
+          </a>
+          <a
+            href="https://music.yandex.ru/artist/17363933?utm_medium=share_link_tg"
+            target="_blank"
+          >
+            <img src="img/ЯМ.jpg" alt="Яндекс.Музыка" />
+          </a>
+        </div>
+        <div class="links-row">
+          <a href="https://zvuk.com/artist/212112729" target="_blank">
+            <img src="img/zvk.jpg" alt="ЗВУК" />
+          </a>
+        </div>
       </div>
     </div>
 
@@ -173,8 +183,8 @@
             await audio.play();
             icon.src = "img/sound.png";
             icon.alt = "Звук вкл";
-          } catch (err) {
-            console.log("Не удалось включить:", err);
+          } catch (e) {
+            console.log("Не удалось включить звук:", e);
           }
         } else {
           audio.pause();
