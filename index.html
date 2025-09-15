@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Горе от</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        font-family: Arial, sans-serif;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Видео */
+      .video-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 900px;
+        margin-top: 80px; /* больше отступ сверху */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+      }
+
+      .video-wrapper video {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+      }
+
+      /* Кнопка звука */
+      #musicBtn {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        width: 80px;
+        height: 80px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.4);
+        cursor: pointer;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      }
+      #musicBtn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
+        transform: scale(1.05);
+      }
+      #musicBtn img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        pointer-events: none;
+      }
+
+      /* Ссылки */
+      .links-section {
+        margin-top: 60px; /* увеличенный отступ от видео */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+      }
+
+      .links-row {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+      }
+
+      .links-row a img {
+        max-height: 50px;
+        height: auto;
+        width: auto;
+        transition: transform 0.3s;
+      }
+      .links-row a img:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Видео -->
+    <div class="video-wrapper">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="videos/sqr.webm" type="video/webm" />
+        <source src="videos/1.mp4" type="video/mp4" />
+      </video>
+      <!-- Кнопка управления музыкой -->
+      <button id="musicBtn">
+        <img id="musicIcon" src="img/mute.png" alt="Звук выкл" />
+      </button>
+    </div>
+
+    <!-- Ссылки -->
+    <div class="links-section">
+      <div class="links-row">
+        <a href="https://vk.com" target="_blank">
+          <img src="img/VK.jpg" alt="VK Музыка" />
+        </a>
+        <a href="https://music.yandex.ru" target="_blank">
+          <img src="img/ЯМ.jpg" alt="Яндекс.Музыка" />
+        </a>
+      </div>
+      <div class="links-row">
+        <a href="https://zvuk.com" target="_blank">
+          <img src="img/zvk.jpg" alt="ЗВУК" />
+        </a>
+      </div>
+    </div>
+
+    <!-- Музыка -->
+    <audio id="melody" loop>
+      <source src="audio/1.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script>
+      const audio = document.getElementById("melody");
+      const btn = document.getElementById("musicBtn");
+      const icon = document.getElementById("musicIcon");
+
+      btn.addEventListener("click", async () => {
+        if (audio.paused) {
+          try {
+            await audio.play();
+            icon.src = "img/sound.png"; // включённый звук
+            icon.alt = "Звук вкл";
+            btn.style.boxShadow = "0 0 30px rgba(0,255,0,0.7)";
+          } catch (err) {
+            console.log("Не удалось включить:", err);
+          }
+        } else {
+          audio.pause();
+          icon.src = "img/mute.png"; // выключенный звук
+          icon.alt = "Звук выкл";
+          btn.style.boxShadow = "0 0 15px rgba(255,255,255,0.2)";
+        }
+      });
+    </script>
+  </body>
+</html>
